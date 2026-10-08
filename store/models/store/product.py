@@ -4,6 +4,8 @@ from django.utils.text import slugify
 
 
 class Product(models.Model):
+    objects = models.Manager()
+
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
 

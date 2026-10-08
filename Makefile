@@ -66,3 +66,16 @@ prod-collectstatic:
 # git
 ready:
 	git add . && git commit && git push
+
+# tests
+tests:
+	poetry run python manage.py test
+
+act:
+	act -j tests --reuse
+
+act-down:
+	docker ps -aq --filter name=act- | xargs -r docker rm -f
+
+seed-categories:
+	poetry run python manage.py seed_categories

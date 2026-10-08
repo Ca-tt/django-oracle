@@ -1,6 +1,6 @@
+from django.apps import apps
 from django.db import models
 from django.utils.text import slugify
-from django.apps import apps
 
 
 class Category(models.Model):
