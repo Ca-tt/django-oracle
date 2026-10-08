@@ -1,0 +1,19 @@
+<div class="row text-center pt-3">
+  <div class="col-lg-6 m-auto">
+    <h1 class="h1">Categories of The Month</h1>
+    <p>Featured categories of all time. Best deals for a decent price now, today and tomorrow, all year long</p>
+  </div>
+</div>
+
+<div class="row">
+  {# cards #}
+  {% for category in featured_subcategories %}
+    <div class="featured-category col-12 col-md-4 p-4 mt-3">
+      <a href="{{ category.slug }}"><img src="{{ category.image.url }}" class="img-fluid border" /></a>
+      <h5 class="text-center mt-3 mb-3">{{ category.name }}</h5>
+      <p class="text-center">
+        <a class="btn btn-success" href="{{ category.slug }}">See best deals</a>
+      </p>
+    </div>
+  {% endfor %}
+</div>

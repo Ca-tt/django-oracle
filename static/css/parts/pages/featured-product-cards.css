@@ -1,0 +1,4 @@
+.featured-product-card img {
+    height: 70vh;
+    object-fit: cover;
+}

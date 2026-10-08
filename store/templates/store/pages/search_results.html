@@ -1,0 +1,40 @@
+{% extends 'store/parts/layout/base.html' %}
+
+
+{% block content %}
+{% comment %} {{ results}} {% endcomment %}
+  <h1 class="my-5">Results for "{{ query }}"</h1>
+
+  <div class="row">
+  {% comment %} <div class="cards row row-cols-3 row-cols-md-2 justify-content-center mb-5 g-3"> {% endcomment %}
+    {% for product in results %}
+    <div class="featured-product-card col-12 col-md-4 mb-4">
+      <div class="card h-100">
+        <a href="{% url 'product_single' slug=product.slug %}"><img src="{{ product.main_image.url }}" class="card-img-top" alt="{{ product.image.alt }}" /></a>
+        <div class="card-body">
+          <ul class="list-unstyled d-flex justify-content-between">
+            <li>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-muted fa fa-star"></i>
+              <i class="text-muted fa fa-star"></i>
+            </li>
+            <li class="text-muted text-right">{{ product.price }} UAH</li>
+          </ul>
+          <a href="{% url 'product_single' slug=product.slug %}" class="h2 text-decoration-none text-dark">{{ product.title }}</a>
+          <p class="card-text">{{ product.short_description }}</p>
+          {% if product.reviews_count %}
+          <p class="text-muted">Reviews ({{ product.reviews_count }})</p>
+          {% endif %}
+          <a href="{% url 'product_single' slug=product.slug %}" class="btn btn-light">See details</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <div class="col-12">
+        <p>No results found for "{{ query }}".</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

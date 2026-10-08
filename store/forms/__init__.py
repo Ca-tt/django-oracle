@@ -1,0 +1,1 @@
+from store.forms.auth_forms import CustomLoginForm

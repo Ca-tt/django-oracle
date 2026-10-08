@@ -1,0 +1,35 @@
+<div class="row text-center py-3">
+  <div class="col-lg-6 m-auto">
+    <h1 class="h1">Featured Product</h1>
+    <p>Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+  </div>
+</div>
+
+{# featured-product card #}
+<div class="row">
+  {% for product in featured_products %}
+    <div class="featured-product-card col-12 col-md-4 mb-4">
+      <div class="card h-100">
+        <a href="{% url 'product_single' slug=product.slug %}"><img src="{{ product.main_image.url }}" class="card-img-top" alt="{{ product.image.alt }}" /></a>
+        <div class="card-body">
+          <ul class="list-unstyled d-flex justify-content-between">
+            <li>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-warning fa fa-star"></i>
+              <i class="text-muted fa fa-star"></i>
+              <i class="text-muted fa fa-star"></i>
+            </li>
+            <li class="text-muted text-right">{{ product.price }} UAH</li>
+          </ul>
+          <a href="{% url 'product_single' slug=product.slug %}" class="h2 text-decoration-none text-dark">{{ product.title }}</a>
+          <p class="card-text">{{ product.short_description }}</p>
+          {% if product.reviews_count %}
+          <p class="text-muted">Reviews ({{ product.reviews_count }})</p>
+          {% endif %}
+          <a href="{% url 'product_single' slug=product.slug %}" class="btn btn-light">See details</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

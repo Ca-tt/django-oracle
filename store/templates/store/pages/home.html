@@ -1,0 +1,25 @@
+{% extends 'store/parts/layout/base.html' %}
+{% load static %}
+
+{% block extrastyles %}
+  <link rel="stylesheet" href="{% static 'css/parts/pages/home-carousel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/parts/pages/featured-categories.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/parts/pages/featured-product-cards.css' %}" />
+{% endblock %}
+
+{# carousel #}
+{% block hero %}
+  {% include 'store/parts/pages/home-carousel.html' %}
+{% endblock %}
+
+{% block content %}
+  <section class="container py-5">
+    {% include 'store/parts/store/featured-categories.html' %}
+  </section>
+
+  <section class="bg-light">
+    <div class="container py-5">
+      {% include 'store/parts/store/featured-products.html' %}
+    </div>
+  </section>
+{% endblock %}

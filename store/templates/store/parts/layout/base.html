@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Title
+      {% endblock %}
+    </title>
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" href="{% static 'css/libs/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/libs/fontawesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}" />
+    {% block extrastyles %}
+
+    {% endblock %}
+
+    <script src="{% static 'js/libs/jquery-1.11.0.min.js' %}" defer></script>
+    <script src="{% static 'js/libs/jquery-migrate-1.2.1.min.js' %}" defer></script>
+    <script src="{% static 'js/libs/bootstrap.bundle.min.js' %}" defer></script>
+    <script src="{% static 'js/templatemo.js' %}" defer></script>
+    {% block extrascript %}
+
+    {% endblock %}
+
+    {% block extrahead %}
+
+    {% endblock %}
+    <!-- TemplateMo 559 Zay Shop copyright https://templatemo.com/tm-559-zay-shop -->
+  </head>
+  <body>
+    {% include 'store/parts/layout/top-bar.html' %}
+    {% include 'store/parts/layout/header.html' %}
+    {% include 'store/parts/layout/search-modal.html' %}
+
+    {% block hero %}
+    {% endblock %}
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include 'store/parts/layout/footer.html' %}
+    {% include 'store/parts/layout/copyright.html' %}
+  </body>
+</html>

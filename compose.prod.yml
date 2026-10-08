@@ -1,0 +1,13 @@
+services:
+  web:
+    image: ${APP_IMAGE:-django-store:latest}
+    environment:
+      DJANGO_SETTINGS_MODULE: django_store.settings.prod
+    volumes:
+      - ${STATICFILES_HOST_PATH:-/var/www/django_store/staticfiles}:/app/staticfiles
+      - ${MEDIA_HOST_PATH:-/var/www/django_store/media}:/app/media
+    user: "1000:1000"
+    restart: unless-stopped
+
+  db:
+    restart: unless-stopped

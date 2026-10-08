@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{% static 'css/pages/404.css' %}">
+  </head>
+
+  <body>
+    <div id="background"></div>
+    <div class="top">
+      <h1>404</h1>
+      <h3>page not found</h3>
+    </div>
+    <div class="container">
+      <div class="ghost-copy">
+        <div class="one"></div>
+        <div class="two"></div>
+      <div class="three"></div>
+        <div class="four"></div>
+      </div>
+      <div class="ghost">
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye-right"></div>
+          <div class="mouth"></div>
+        </div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+    <div class="bottom">
+      <p>Boo, looks like a ghost stole this page!</p>
+      {% comment %} <form class="search" action="{% url 'search_results' %}" method="get">
+        <input type="text" name="q" class="search-bar" placeholder="Search" />
+        <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+      </form> {% endcomment %}
+      
+      <div class="buttons">
+        <a href="{% url 'home' %}" class="btn">Home</a>
+      </div>
+    </div>
+
+  </body>
+</html>

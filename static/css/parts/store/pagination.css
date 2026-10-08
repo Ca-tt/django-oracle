@@ -1,0 +1,9 @@
+.pagination .page-item.active .page-link {
+    background: #69bb7e;
+    outline: #69bb7e;
+    border: none;
+}
+
+.pagination .page-item .page-link {
+    color: white;
+}

@@ -1,0 +1,9 @@
+.featured-category {
+    text-align: center;
+}
+
+.featured-category img {
+    height: 50vh;
+    width: 100%;
+    object-fit: cover;
+}
