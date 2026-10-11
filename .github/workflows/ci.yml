@@ -96,3 +96,41 @@ jobs:
           tags: |
             ${{ env.IMAGE }}:${{ github.sha }}
             ${{ env.IMAGE }}:latest
+
+  deploy:
+    name: Deploy
+    needs: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        run: |
+          image="$(printf '%s' "$IMAGE" | tr '[:upper:]' '[:lower:]')"
+          host="$(printf '%s' "$SSH_HOST" | tr -d '[:space:]')"
+          user="$(printf '%s' "$SSH_USER" | tr -d '[:space:]')"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$host" >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes "$user@$host" \
+            "export APP_IMAGE='$image'; bash -s" <<'EOF'
+          set -euo pipefail
+          cd /home/ubuntu/django_store
+          docker compose -f compose.yml -f compose.prod.yml pull
+          docker compose -f compose.yml -f compose.prod.yml up -d
+          docker compose -f compose.yml -f compose.prod.yml exec -T web python manage.py migrate
+          docker compose -f compose.yml -f compose.prod.yml exec -T web python manage.py collectstatic --noinput
+          for _ in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS -o /dev/null http://127.0.0.1:8000/; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+          EOF
